@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ring.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 18:37:28 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 12:10:10 by yforeau          ###   ########.fr       */
+/*   Created: 2019/05/08 21:02:51 by yforeau           #+#    #+#             */
+/*   Updated: 2019/05/08 21:03:23 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "fts_init.h"
-#include "fts_load_argv.h"
-#include "fts_print.h"
+#ifndef RING_H
+# define RING_H
 
-int		main(int argc, char **argv)
-{
-	t_ftsdata	ftsd;
+# include "t_ftsdata.h"
 
-	(void)argc;
-	ft_bzero((void *)&ftsd, sizeof(t_ftsdata));
-	fts_init(&ftsd);
-	fts_load_argv(&ftsd, argv);
-	fts_print(&ftsd);
-//	while (fts_input(&ftsd))
-//		;
-	ft_exit(NULL, EXIT_SUCCESS);
-	return (0);
-}
+t_ftselem	*ring_new(const char *str);
+t_ftselem	*ring_add(t_ftselem **alst, const char *str);
+void		ring_rm_elem(t_ftselem **alst);
+void		ring_del_list(t_ftselem *lst);
+
+#endif
