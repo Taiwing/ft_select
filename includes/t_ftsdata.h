@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 11:39:06 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 12:11:34 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/09 13:36:20 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct			s_ftsprint
 	char				*lscolors;			/*env variable LSCOLORS*/
 	char				*termcaps[TERMC];	/*termcpas needed for ft_select*/
 	int					scroll;				/*number of lines used*/
-//	int					origin[2];			/*coordinates of the first word*/
+	int					origin[2];			/*coordinates of the first word*/
 	int					grid_h;				/*grid height*/
 	int					grid_w;				/*grid width*/
 	int					printable;			/*grid_h * grid_w*/
