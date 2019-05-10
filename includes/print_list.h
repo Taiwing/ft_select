@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_list.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 18:37:28 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/10 17:23:36 by yforeau          ###   ########.fr       */
+/*   Created: 2019/05/10 16:31:41 by yforeau           #+#    #+#             */
+/*   Updated: 2019/05/10 16:33:31 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "fts_init.h"
-#include "fts_load_argv.h"
-#include "fts_print.h"
+#ifndef PRINT_LIST_H
+# define PRINT_LIST_H
 
-int		main(int argc, char **argv)
-{
-	t_ftsdata	ftsd;
+# include "t_ftsdata.h"
 
-	(void)argc;
-	ft_bzero((void *)&ftsd, sizeof(t_ftsdata));
-	fts_init(&ftsd);
-	fts_load_argv(&ftsd, argv);
-	fts_print(&ftsd);
-//	while (fts_input(&ftsd))
-//		;
-	ft_exit(NULL, EXIT_SUCCESS);
-	return (0);
-}
+void	print_elem(t_ftselem *elem, int coord[2],
+					t_ftsprint *ftsp, int on_cursor);
+int		reprint_screen(t_ftsdata *ftsd, t_ftsprint *ftsp);
+
+#endif

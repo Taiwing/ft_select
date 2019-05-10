@@ -6,37 +6,81 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 22:00:55 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 13:43:27 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/10 17:28:18 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_ftsdata.h"
+#include <errno.h>
+#include "terminal_mode.h"
+#include "libft.h"
+#include "print_list.h"
+
+static void	resize_grid(t_ftsdata *ftsd, t_ftsprint *ftsp)
+{
+	int	wsize;
+
+	wsize = ftsd->elem_size + 1;
+	ftsp->scroll = ftsd->term_h;
+	ftsp->grid_w = 0;
+	ftsp->grid_h = 0;
+	ftsp->printable = 0;
+	while (wsize <= ftsd->term_w - (ftsp->grid_w * wsize))
+	{
+		++ftsp->grid_w;
+		if (ftsd->list_size / ftsp->grid_w <= ftsd->term_h)
+			ftsp->grid_h = ftsd->list_size / ftsp->grid_w;
+		if ((ftsp->printable = ftsp->grid_w * ftsp->grid_h) >= ftsd->list_size)
+			break ;
+	}
+}
 
 static int	reset_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
 {
-	(void)ftsd;
-	(void)ftsp;
-	return (0);
+	int	reprint;
+
+	reprint = 0;
+	if (ftsp->scroll != ftsd->term_h)
+	{
+		resize_grid(ftsd, ftsp);
+		reprint = 1;
+	}
+	if (ftsp->cursor[X] < 0 || ftsp->cursor[X] >= ftsp->grid_w)
+	{
+		ftsp->cursor[X] = ftsp->cursor[X] < 0 ? 0 : ftsp->grid_w - 1;
+		reprint = 1;
+	}
+	if (ftsp->cursor[Y] < 0 || ftsp->cursor[Y] >= ftsp->grid_h)
+	{
+		ftsp->cursor[Y] = ftsp->cursor[Y] < 0 ? ftsp->grid_h - 1 : 0;
+		reprint = 1;
+	}
+	return (reprint ? reprint_screen(ftsd, ftsp) : 0);
 }
 
-int		fts_print(t_ftsdata *ftsd)
+int			fts_print(t_ftsdata *ftsd)
 {
+	int			reset;
 	t_ftsprint	*ftsp;
 
 	ftsp = &ftsd->ftsp;
-	if (ftsp->scroll != ftsd->term_h || ftsp->printable < ftsd->list_size)
+	if ((reset = reset_screen(ftsd, ftsp)) == -1)
 	{
-		if (ftsp->cursor[X] < 0 || ftsp->cursor[X] >= ftsp->grid_w)
-			ftsp->cursor[X] = ftsp->cursor[X] < 0 ? 0 : ftsp->grid_w - 1;
-		else if (ftsp->cursor[Y] < 0 || ftsp->cursor[Y] >= ftsp->grid_h)
-			ftsp->cursor[Y] = ftsp->cursor[Y] < 0 ? ftsp->grid_h - 1 : 0;
-		reset_screen(ftsd, ftsp);
+		ftsp->scroll = 0;
+		return (fts_print(ftsd));
 	}
-	else
+	else if (!reset && ftsp->printable)
 	{
-		//print from
-		//print lst
+		errno = 0;
+		print_elem(ftsp->from, ftsp->from_pos, ftsp, 0);
+		print_elem(ftsd->lst, ftsp->cursor, ftsp, 1);
+		if (errno)
+		{
+			ftsp->scroll = 0;
+			return (fts_print(ftsd));
+		}
 	}
 	ftsp->from = ftsd->lst;
+	ftsp->from_pos[X] = ftsp->cursor[X];
+	ftsp->from_pos[Y] = ftsp->cursor[Y];
 	return (0);
 }

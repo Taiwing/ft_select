@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:02:29 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 12:11:12 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/10 17:23:57 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_ftselem	*ring_new(const char *str)
 	if ((new = (t_ftselem *)ft_secmalloc(sizeof(t_ftselem))))
 	{
 		new->selected = 0;
+		new->type = 0;
 		new->str = str;
 		new->prev = NULL;
 		new->next = NULL;

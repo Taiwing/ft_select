@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 18:34:27 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 12:06:56 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/10 14:11:04 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include "libft.h"
 #include "t_ftsdata.h"
 #include "terminal_mode.h"
-
-/*TODO: set raw input in here*/
+#include "load_colors.h"
 
 t_ftsdata	*ftsd_container(t_ftsdata *ftsd_in)
 {
@@ -75,4 +74,5 @@ void		fts_init(t_ftsdata *ftsd)
 	reset_input_mode();
 	ft_atexit(reset_input_mode);
 	ftsd->ftsp.lscolors = getenv("LSCOLORS");
+	load_colors(ftsd->ftsp.lscolors, ftsd->ftsp.colors);
 }
