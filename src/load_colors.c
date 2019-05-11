@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 13:09:26 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/10 16:56:04 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 10:26:35 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void		load_colors(char *lscolors, char colors[FTST_NBR][2][16])
 	if (!lscolors || (len = ft_strlen(lscolors)) < 22)
 		ft_strncat(buf, "xxxxxxxxxxxxxxxxxxxxxx", 22 - len);
 	lscolors = buf;
-	i = -1;
+	i = 0;
+	ft_strcpy(colors[FTST_UNKNOWN][FG], get_color('x', FG));
+	ft_strcpy(colors[FTST_UNKNOWN][BG], get_color('x', BG));
 	while (++i < FTST_NBR && *lscolors)
 	{
 		j = i % 2 ? BG : FG;
