@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 22:00:55 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:13:13 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 15:34:37 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	resize_grid(t_ftsdata *ftsd, t_ftsprint *ftsp)
 {
 	int	wsize;
 
-	wsize = ftsd->elem_size + 1;
+	wsize = ftsp->elem_size + 1;
 	ftsp->scroll = ftsd->term_h;
 	ftsp->grid_w = 0;
 	ftsp->grid_h = 0;
@@ -51,7 +51,7 @@ static int	reset_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
 	}
 	if (ftsp->cursor[Y] < 0 || ftsp->cursor[Y] >= ftsp->grid_h)
 	{
-		ftsp->cursor[Y] = ftsp->cursor[Y] < 0 ? ftsp->grid_h - 1 : 0;
+		ftsp->cursor[Y] = ftsp->cursor[Y] < 0 ? 0 : ftsp->grid_h - 1;
 		reprint = 1;
 	}
 	return (reprint ? reprint_screen(ftsd, ftsp) : 0);

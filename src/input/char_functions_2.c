@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 11:29:52 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:17:29 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 17:40:59 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "charfunc.h"
 #include "ring.h"
 #include "fts_print.h"
+#include "cursor.h"
 
 int	move_down(t_ftsdata *ftsd, char input[8])
 {
@@ -21,20 +22,7 @@ int	move_down(t_ftsdata *ftsd, char input[8])
 	if (ftsd->list_size > 1)
 	{
 		ftsd->lst = ftsd->lst->next;
-		++ftsd->ftsp.cursor[Y];
-		if (ftsd->ftsp.printable > ftsd->list_size
-			&& ftsd->ftsp.cursor[X] == ftsd->ftsp.grid_w - 1
-			&& ftsd->ftsp.cursor[Y] >= ftsd->list_size % ftsd->ftsp.grid_h)
-		{
-			ftsd->ftsp.cursor[Y] = 0;
-			ftsd->ftsp.cursor[X] = 0;
-		}
-		else if (ftsd->ftsp.cursor[Y] >= ftsd->ftsp.grid_h)
-		{
-			if (++ftsd->ftsp.cursor[X] >= ftsd->ftsp.grid_w
-				&& ftsd->ftsp.printable < ftsd->list_size)
-				ftsd->ftsp.cursor[X] = ftsd->ftsp.grid_w - 1;
-		}
+		move_cursor_down(&ftsd->ftsp, ftsd->list_size, 1);
 		fts_print(ftsd);
 	}	
 	return (CONTINUE_INPUT);
@@ -42,15 +30,33 @@ int	move_down(t_ftsdata *ftsd, char input[8])
 
 int	move_right(t_ftsdata *ftsd, char input[8])
 {
+	int	i;
+
 	(void)input;
-	(void)ftsd;
+	if (ftsd->list_size > 1)
+	{
+		i = ftsd->ftsp.grid_h + 1;
+		while (--i)
+			ftsd->lst = ftsd->lst->next;
+		move_cursor_down(&ftsd->ftsp, ftsd->list_size, ftsd->ftsp.grid_h);
+		fts_print(ftsd);
+	}
 	return (CONTINUE_INPUT);
 }
 
 int	move_left(t_ftsdata *ftsd, char input[8])
 {
+	int	i;
+
 	(void)input;
-	(void)ftsd;
+	if (ftsd->list_size > 1)
+	{
+		i = ftsd->ftsp.grid_h + 1;
+		while (--i)
+			ftsd->lst = ftsd->lst->prev;
+		move_cursor_up(&ftsd->ftsp, ftsd->list_size, ftsd->ftsp.grid_h);
+		fts_print(ftsd);
+	}
 	return (CONTINUE_INPUT);
 }
 

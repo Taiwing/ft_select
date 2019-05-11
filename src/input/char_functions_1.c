@@ -6,13 +6,14 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 11:28:32 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:05:12 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 17:30:25 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "charfunc.h"
 #include "ring.h"
 #include "fts_print.h"
+#include "cursor.h"
 
 int	discard_input(t_ftsdata *ftsd, char input[8])
 {
@@ -66,17 +67,7 @@ int	move_up(t_ftsdata *ftsd, char input[8])
 	if (ftsd->list_size > 1)
 	{
 		ftsd->lst = ftsd->lst->prev;
-		if (--ftsd->ftsp.cursor[Y] < 0)
-		{
-			if (--ftsd->ftsp.cursor[X] < 0
-				&& ftsd->ftsp.printable != ftsd->list_size)
-			{
-				if (ftsd->ftsp.printable < ftsd->list_size)
-					ftsd->ftsp.cursor[X] = 0;
-				else
-					ftsd->ftsp.cursor[Y] = ftsd->list_size % ftsd->ftsp.grid_h;
-			}
-		}
+		move_cursor_up(&ftsd->ftsp, ftsd->list_size, 1);
 		fts_print(ftsd);
 	}	
 	return (CONTINUE_INPUT);

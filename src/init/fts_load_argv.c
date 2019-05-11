@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 20:57:05 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/09 12:07:51 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 14:57:34 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	fts_load_argv(t_ftsdata *ftsd, char **argv)
 	while (*++argv)
 	{
 		ring_add(&ftsd->lst, *argv);
-		if ((l = ft_strlen(*argv)) > ftsd->elem_size)
-			ftsd->elem_size = l;
+		if ((l = ft_strlen(*argv)) > ftsd->ftsp.elem_size)
+			ftsd->ftsp.elem_size = l;
 		++ftsd->list_size;
 	}
 	first = ftsd->lst;

@@ -29,7 +29,8 @@ INPUTC			=	char_functions_1.c\
 					fts_getchar.c\
 					g_charfunc.c\
 
-PRINTC			=	fts_print.c\
+PRINTC			=	cursor.c\
+					fts_print.c\
 					print_list.c\
 
 ODIR			=	obj
@@ -61,11 +62,12 @@ fts_load_argv.o: ring.h t_ftsdata.h libft.h
 load_colors.o: libft.h t_ftsdata.h c_colors.h
 ring.o: t_ftsdata.h libft.h
 terminal_mode.o: libft.h fts_init.h t_ftsdata.h
-char_functions_1.o: charfunc.h t_ftsdata.h ring.h fts_print.h
-char_functions_2.o: charfunc.h t_ftsdata.h ring.h fts_print.h
+char_functions_1.o: charfunc.h t_ftsdata.h ring.h fts_print.h cursor.h
+char_functions_2.o: charfunc.h t_ftsdata.h ring.h fts_print.h cursor.h
 fts_getchar.o: libft.h charfunc.h t_ftsdata.h
 g_charfunc.o: charfunc.h t_ftsdata.h
 main.o: libft.h fts_init.h t_ftsdata.h fts_load_argv.h fts_print.h charfunc.h
+cursor.o: t_ftsdata.h
 fts_print.o: terminal_mode.h libft.h print_list.h t_ftsdata.h
 print_list.o: libft.h t_ftsdata.h terminal_mode.h c_colors.h
 %.o: %.c

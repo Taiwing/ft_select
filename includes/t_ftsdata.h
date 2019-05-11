@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 11:39:06 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:25:31 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 14:56:22 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_ftsprint
 	char				colors[FTST_NBR][2][16];	/*colors for each type*/
 	int					scroll;				/*number of lines used*/
 	int					origin[2];			/*coordinates of the first word*/
+	int					elem_size;			/*size of a word*/
 	int					grid_h;				/*grid height*/
 	int					grid_w;				/*grid width*/
 	int					printable;			/*grid_h * grid_w*/
@@ -57,7 +58,6 @@ typedef struct			s_ftsdata
 	int					term_proc;
 	int					term_h;
 	int					term_w;
-	int					elem_size;			/*size of a word*/
 	int					list_size;			/*number of elements*/
 	t_ftselem			*lst;				/*is the list and the cursor*/
 	t_ftsprint			ftsp;				/*printing data*/

@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:14:49 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:22:18 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 15:02:26 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 void		print_elem(t_ftselem *elem, int	coord[2],
 					t_ftsprint *ftsp, int on_cursor)
 {
+	int	x;
+
 	if (errno || !elem)
 		return ;
-	tputs(tgoto(ftsp->termcaps[TC_CM], coord[X], coord[Y]), 1, tputchar);
+	x = coord[X] * (ftsp->elem_size + 1);
+	tputs(tgoto(ftsp->termcaps[TC_CM], x, coord[Y]), 1, tputchar);
 	//maybe clear next elem_size characters
 	if (!errno)
 		ft_dprintf(1, "%s%s%s%s%s" C_RESET, ftsp->colors[elem->type][FG],
