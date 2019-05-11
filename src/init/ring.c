@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:02:29 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/10 17:23:57 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:09:26 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void		ring_rm_elem(t_ftselem **alst)
 		next->prev = prev;
 	free(ft_heap_collector(*alst, FT_COLLEC_GET));
 	if (prev != next)
-		*alst = prev ? prev : next;
+		*alst = next ? next : prev;
 	else
-		*alst = prev == *alst ? NULL : prev;
+		*alst = next == *alst ? NULL : next;
 }
 
 void		ring_del_list(t_ftselem *lst)

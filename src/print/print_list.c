@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:14:49 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 10:27:38 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:22:18 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void		print_elem(t_ftselem *elem, int	coord[2],
 					t_ftsprint *ftsp, int on_cursor)
 {
-	if (errno)
+	if (errno || !elem)
 		return ;
 	tputs(tgoto(ftsp->termcaps[TC_CM], coord[X], coord[Y]), 1, tputchar);
 	//maybe clear next elem_size characters
@@ -72,7 +72,7 @@ int			reprint_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
 	int			coord[2];
 	t_ftselem	*ptr;
 
-	//maybe clear
+	tputs(ftsp->termcaps[TC_CL], 1, tputchar);
 	errno = 0;
 	if ((to_print = ftsp->printable < ftsd->list_size
 		? ftsp->printable : ftsd->list_size))

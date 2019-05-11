@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 11:39:06 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/10 16:39:52 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:25:31 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct			s_ftselem
 	struct s_ftselem	*next;
 }						t_ftselem;
 
-# define TERMC			5
+# define TERMC			6
 
-enum					e_terms {TC_CM = 0, TC_TI, TC_TE, TC_VI, TC_VE};
+enum					e_terms {TC_CM = 0, TC_TI, TC_TE, TC_VI, TC_VE, TC_CL};
 
 typedef struct			s_ftsprint
 {

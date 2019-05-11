@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fts_getchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 18:37:28 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:04:05 by yforeau          ###   ########.fr       */
+/*   Created: 2019/05/11 10:55:11 by yforeau           #+#    #+#             */
+/*   Updated: 2019/05/11 13:00:55 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fts_init.h"
-#include "fts_load_argv.h"
-#include "fts_print.h"
 #include "charfunc.h"
 
-int		main(int argc, char **argv)
+int		fts_getchar(char c[8])
 {
-	t_ftsdata	ftsd;
-	char		input[8];
+	int	i;
+	int	rd;
 
-	(void)argc;
-	ft_bzero((void *)&ftsd, sizeof(t_ftsdata));
-	fts_init(&ftsd);
-	fts_load_argv(&ftsd, argv);
-	fts_print(&ftsd);
-	while (ftsd.lst && g_charfunc[fts_getchar(input)](&ftsd, input))
+	if ((rd = read(0, c, 8)) == -1)
+		ft_exit("read_error", EXIT_FAILURE); //TEMP
+	if (rd == 1 && (c[0] > 31 || ft_strchr(INPUT_CONTROL_CHARS, c[0])))
+		return (c[0]);
+	else if (rd > 1)
 	{
-		ft_bzero(input, 8);
-		fts_print(&ftsd);
+		i = -1;
+		while (g_multibyte_chars[++i])
+		{
+			if (!ft_strcmp(g_multibyte_chars[i], c))
+				return (i + 11);
+		}
 	}
-	ft_atexit(NULL);
-	ft_heap_collector(NULL, FT_COLLEC_FREE);
 	return (0);
 }

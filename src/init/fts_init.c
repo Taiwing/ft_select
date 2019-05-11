@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 18:34:27 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/10 14:11:04 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:25:35 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,14 @@ void		init_termcaps(t_ftsdata *ftsd)
 {
 	char	**termcaps;
 	char	*term_name;
-	int		ent;
 
 	termcaps = ftsd->ftsp.termcaps;
 	if (!isatty(0))
 		ft_exit("isatty: not a terminal", EXIT_FAILURE);
 	if (!(term_name = getenv("TERM")))
 		ft_exit("getenv: could not get terminal name", EXIT_FAILURE);
-	if (!(ent = tgetent(NULL, term_name)))
+	if (tgetent(NULL, term_name) <= 0)
 		ft_exit("tgetent: terminal not found", EXIT_FAILURE);
-	else if (ent < 0)
-		ft_exit("tgetent: terminfo database not found", EXIT_FAILURE);
 	if (!(ftsd->term_proc = ttyslot()))
 		ft_exit("ttyslot: couldn't get tty process number", EXIT_FAILURE);
 	if (!(termcaps[TC_CM] = tgetstr("cm", NULL)))
@@ -53,6 +50,8 @@ void		init_termcaps(t_ftsdata *ftsd)
 		ft_exit("tgetstr: 'vi' termcap not found", EXIT_FAILURE);
 	if (!(termcaps[TC_VE] = tgetstr("ve", NULL)))
 		ft_exit("tgetstr: 've' termcap not found", EXIT_FAILURE);
+	if (!(termcaps[TC_CL] = tgetstr("cl", NULL)))
+		ft_exit("tgetstr: 'cl' termcap not found", EXIT_FAILURE);
 }
 
 void		get_term_size(t_ftsdata *ftsd)
