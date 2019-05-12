@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 11:29:52 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/12 18:08:20 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/12 18:13:28 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	move_right(t_ftsdata *ftsd, char input[8])
 	int	i;
 
 	(void)input;
-	if (ftsd->list_size > 1 && ftsd->ftsp.grid_w > 1)
+	if (ftsd->list_size > 1
+		&& (ftsd->ftsp.grid_w > 1 || ftsd->ftsp.grid_h == 1))
 	{
 		i = ftsd->ftsp.grid_h + 1;
 		while (--i)
@@ -49,7 +50,8 @@ int	move_left(t_ftsdata *ftsd, char input[8])
 	int	i;
 
 	(void)input;
-	if (ftsd->list_size > 1 && ftsd->ftsp.grid_w > 1)
+	if (ftsd->list_size > 1
+		&& (ftsd->ftsp.grid_w > 1 || ftsd->ftsp.grid_h == 1))
 	{
 		i = ftsd->ftsp.grid_h + 1;
 		while (--i)
