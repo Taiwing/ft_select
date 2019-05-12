@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 15:39:08 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/12 17:35:19 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/12 18:06:51 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	move_cursor_down(t_ftsprint *ftsp, int list_size, int move)
 				ftsp->cursor[X] = 0;
 				if (ftsp->printable < list_size)
 				{
-					ftsp->cursor[X] = ftsp->grid_w - 1;
+					if (ftsp->grid_w > 1)
+						ftsp->cursor[X] = ftsp->grid_w - 1;
+					else
+						ftsp->cursor[Y] = ftsp->grid_h - 1;
 					ftsp->scroll = 0;
 				}
 			}
@@ -45,7 +48,10 @@ void	move_cursor_up(t_ftsprint *ftsp, int list_size, int move)
 				ftsp->cursor[X] = ftsp->grid_w - 1;
 				if (ftsp->printable < list_size)
 				{
-					ftsp->cursor[X] = 0;
+					if (ftsp->grid_w > 1)
+						ftsp->cursor[X] = 0;
+					else
+						ftsp->cursor[Y] = 0;
 					ftsp->scroll = 0;
 				}
 			}
