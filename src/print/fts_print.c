@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 22:00:55 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/12 17:24:53 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/12 17:59:01 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	resize_grid(t_ftsdata *ftsd, t_ftsprint *ftsp)
 		++ftsp->grid_w;	
 	}
 	ftsp->printable = ftsp->grid_w * ftsp->grid_h;
+	ftsp->origin[X] = (ftsd->term_w - (ftsp->grid_w * wsize)) / 2;
 }
 
 static int	reset_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
