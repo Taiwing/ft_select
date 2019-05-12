@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 22:00:55 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 15:34:37 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/12 17:24:53 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@
 static void	resize_grid(t_ftsdata *ftsd, t_ftsprint *ftsp)
 {
 	int	wsize;
+	int	list_size;
 
 	wsize = ftsp->elem_size + 1;
+	list_size = ftsd->list_size;
 	ftsp->scroll = ftsd->term_h;
 	ftsp->grid_w = 0;
-	ftsp->grid_h = 0;
-	ftsp->printable = 0;
-	while (wsize <= ftsd->term_w - (ftsp->grid_w * wsize))
+	ftsp->grid_h = list_size < ftsd->term_h ? list_size : ftsd->term_h;
+	while (wsize <= ftsd->term_w - (ftsp->grid_w * wsize)
+			&& list_size >= ftsp->grid_h)
 	{
-		++ftsp->grid_w;
-		if (ftsd->list_size / ftsp->grid_w <= ftsd->term_h)
-			ftsp->grid_h = ftsd->list_size / ftsp->grid_w;
-		if ((ftsp->printable = ftsp->grid_w * ftsp->grid_h) >= ftsd->list_size)
-			break ;
+		list_size -= ftsp->grid_h;
+		++ftsp->grid_w;	
 	}
+	ftsp->printable = ftsp->grid_w * ftsp->grid_h;
 }
 
 static int	reset_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
