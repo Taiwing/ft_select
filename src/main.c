@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 18:37:28 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:04:05 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:21:51 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,22 @@
 #include "fts_print.h"
 #include "charfunc.h"
 
-int		main(int argc, char **argv)
+static void	fts_print_selection(t_ftselem *lst, int size)
+{
+	t_ftselem	*ptr;
+
+	if (!lst || !size)
+		return ;
+	ptr = lst;
+	ft_printf("%s", ptr->str);
+	while (ptr->next && ptr->next != lst)
+	{
+		ptr = ptr->next;
+		ft_printf(" %s", ptr->str);
+	}
+}
+
+int			main(int argc, char **argv)
 {
 	t_ftsdata	ftsd;
 	char		input[8];
@@ -32,6 +47,7 @@ int		main(int argc, char **argv)
 		fts_print(&ftsd);
 	}
 	ft_atexit(NULL);
+	fts_print_selection(ftsd.lst, ftsd.list_size);
 	ft_heap_collector(NULL, FT_COLLEC_FREE);
 	return (0);
 }

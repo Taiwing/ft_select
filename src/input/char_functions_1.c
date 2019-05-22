@@ -6,10 +6,11 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 11:28:32 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 17:30:25 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:39:52 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "charfunc.h"
 #include "ring.h"
 #include "fts_print.h"
@@ -35,7 +36,8 @@ int	return_selection(t_ftsdata *ftsd, char input[8])
 			--ftsd->list_size;
 			ring_rm_elem(&lst);
 		}
-		lst = lst->next;
+		else
+			lst = lst->next;
 	}
 	if (lst && !lst->selected)
 	{
@@ -50,6 +52,7 @@ int	quit(t_ftsdata *ftsd, char input[8])
 	(void)input;
 	ftsd->list_size = 0;
 	ring_del_list(ftsd->lst);
+	ftsd->lst = NULL;
 	return (STOP_INPUT);
 }
 
