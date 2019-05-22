@@ -6,16 +6,18 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 18:34:27 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:25:35 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/22 12:14:50 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termcap.h>
 #include <sys/ioctl.h>
+#include <signal.h>
 #include "libft.h"
 #include "t_ftsdata.h"
 #include "terminal_mode.h"
 #include "load_colors.h"
+#include "signal.h"
 
 t_ftsdata	*ftsd_container(t_ftsdata *ftsd_in)
 {
@@ -64,6 +66,15 @@ void		get_term_size(t_ftsdata *ftsd)
 	ftsd->term_w = w.ws_col;
 }
 
+static void	init_signals(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 31)
+		signal(i, signal_hand);
+}
+
 void		fts_init(t_ftsdata *ftsd)
 {
 	ft_exitmsg("ft_select");
@@ -74,4 +85,5 @@ void		fts_init(t_ftsdata *ftsd)
 	ft_atexit(reset_input_mode);
 	ftsd->ftsp.lscolors = getenv("LSCOLORS");
 	load_colors(ftsd->ftsp.lscolors, ftsd->ftsp.colors);
+	init_signals();
 }
