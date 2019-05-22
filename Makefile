@@ -71,6 +71,7 @@ cursor.o: t_ftsdata.h
 fts_print.o: terminal_mode.h libft.h print_list.h t_ftsdata.h
 print_list.o: libft.h t_ftsdata.h terminal_mode.h c_colors.h
 %.o: %.c
+	@mkdir -p $(ODIR)
 	$(CC) -c $(CFLAGS) $< $(HFLAGS) -o $(ODIR)/$@
 
 $(ODIR):

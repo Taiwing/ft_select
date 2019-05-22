@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 13:09:26 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 10:26:35 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/22 10:41:22 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*get_color(char c, int fbg)
 void		load_colors(char *lscolors, char colors[FTST_NBR][2][16])
 {
 	int		i;
-	int		j;
 	int		len;
 	char	buf[23];
 
@@ -56,10 +55,11 @@ void		load_colors(char *lscolors, char colors[FTST_NBR][2][16])
 	ft_strcpy(colors[FTST_UNKNOWN][BG], get_color('x', BG));
 	while (++i < FTST_NBR && *lscolors)
 	{
-		j = i % 2 ? BG : FG;
-		ft_strcpy(colors[i][j], get_color(*lscolors, j));
 		if (*lscolors > 64 && *lscolors < 91)
-			ft_strcat(colors[i][j], C_BOLD);
-		++lscolors;
+			ft_strcat(colors[i][FG], C_BOLD);
+		ft_strcpy(colors[i][FG], get_color(*lscolors++, FG));
+		if (*lscolors > 64 && *lscolors < 91)
+			ft_strcat(colors[i][BG], C_BOLD);
+		ft_strcpy(colors[i][BG], get_color(*lscolors++, BG));
 	}
 }
