@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:14:49 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/12 17:59:38 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:45:12 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		print_elem(t_ftselem *elem, int	coord[2],
 	tputs(tgoto(ftsp->termcaps[TC_CM], x, coord[Y]), 1, tputchar);
 	//maybe clear next elem_size characters
 	if (!errno)
-		ft_dprintf(1, "%s%s%s%s%s" C_RESET, ftsp->colors[elem->type][FG],
+		ft_dprintf(0, "%s%s%s%s%s" C_RESET, ftsp->colors[elem->type][FG],
 			ftsp->colors[elem->type][BG], elem->selected ? C_REVERSE : "",
 			on_cursor ? C_UNDERLINE : "", elem->str);
 }
