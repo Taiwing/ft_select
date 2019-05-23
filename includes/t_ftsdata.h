@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 11:39:06 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/12 19:44:45 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/23 10:46:43 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ typedef struct			s_ftsprint
 	char				*lscolors;			/*env variable LSCOLORS*/
 	char				colors[FTST_NBR][2][16];	/*colors for each type*/
 	int					scroll;				/*number of lines used*/
-	int					origin[2];			/*coordinates of the first word*/
+	int					origin[2];			/*coordinates of the first column*/
 	int					elem_size;			/*size of a word*/
+
+	int					col_w;				/*column width*/
+	int					separators;			/*boolean for sep. printing*/
+	int					status_bar;			/*boolean for status printing*/
+
 	int					grid_h;				/*grid height*/
 	int					grid_w;				/*grid width*/
 	int					printable;			/*grid_h * grid_w*/
-	t_ftselem			*from;				/*element to reprint*/
-	int					from_pos[2];		/*coordinates of from*/
 	int					cursor[2];			/*cursor pos in the grid (orig 0)*/
+	int					from_pos[2];		/*cursor pos of from*/
+	t_ftselem			*from;				/*element to reprint*/
 }						t_ftsprint;
 
 enum					e_xy {X = 0, Y = 1};
