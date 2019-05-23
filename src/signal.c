@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 12:03:01 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/22 13:59:58 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/23 10:34:37 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "fts_init.h"
 #include "fts_print.h"
 
-static void	reprint_screen(t_ftsdata *ftsd)
+static void	refresh_screen(t_ftsdata *ftsd)
 {
 	get_term_size(ftsd);
 	ftsd->ftsp.scroll = 0;
@@ -47,8 +47,8 @@ void		signal_hand(int sig)
 			ftsd->term_proc = proc;
 			init_termcaps(ftsd);
 		}
-		reprint_screen(ftsd);
+		refresh_screen(ftsd);
 	}
 	else if (sig == SIGWINCH)
-		reprint_screen(ftsd_container(NULL));
+		refresh_screen(ftsd_container(NULL));
 }
