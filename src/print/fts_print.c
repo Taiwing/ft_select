@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 22:00:55 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 11:42:55 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/23 14:32:12 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ static void	resize_grid(t_ftsdata *ftsd, t_ftsprint *ftsp)
 	int	list_size;
 
 	ftsp->separators = ftsd->term_w >= ftsp->elem_size + 4;
+	ftsp->status_bar = ftsd->term_h > 1 && ftsd->term_w >= ftsp->elem_size + 1;
 	ftsp->col_w = ftsp->elem_size + (ftsp->separators ? 3 : 1);
 	list_size = ftsd->list_size;
 	ftsp->scroll = ftsd->term_h;
 	ftsp->grid_w = 0;
-	ftsp->grid_h = list_size < ftsd->term_h ? list_size : ftsd->term_h;
+	ftsp->grid_h = list_size < ftsd->term_h - ftsp->status_bar ?
+		list_size : ftsd->term_h - ftsp->status_bar;
 	while (ftsp->col_w <= ftsd->term_w - (ftsp->grid_w * ftsp->col_w)
 			- ftsp->separators && list_size >= ftsp->grid_h)
 	{
