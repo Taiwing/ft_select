@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 11:47:42 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 14:26:12 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/23 15:07:02 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ static void	print_separators(t_ftsprint *ftsp)
 static void	print_status_bar(t_ftsdata *ftsd, t_ftsprint *ftsp)
 {
 	int	width;
+	int	len;
 
-	(void)ftsp;
-	(void)ftsd;
 	tputs(tgoto(ftsp->termcaps[TC_CM], 0, ftsd->term_h - 1), 1, tputchar);
 	if ((width = ftsd->term_w % 255))
 		ft_dprintf(0, C_REVERSE "%.*s" C_NO_REVERSE, width, g_spaces);
@@ -52,6 +51,16 @@ static void	print_status_bar(t_ftsdata *ftsd, t_ftsprint *ftsp)
 	{
 		ft_dprintf(0, C_REVERSE "%.*s" C_NO_REVERSE, width, g_spaces);
 		width -= 255;
+	}
+	tputs(tgoto(ftsp->termcaps[TC_CM], 1, ftsd->term_h - 1), 1, tputchar);
+	ft_dprintf(0, C_REVERSE "%.*s" C_NO_REVERSE " ", ftsp->elem_size,
+			"completion");
+	if ((len = ft_intlen(ftsd->list_size)) > 0
+		&& len <= (ftsd->term_w - ftsp->elem_size - 3))
+	{
+		tputs(tgoto(ftsp->termcaps[TC_CM], ftsd->term_w - len - 1,
+			ftsd->term_h - 1), 1, tputchar);
+		ft_dprintf(0, C_REVERSE "%d" C_NO_REVERSE, ftsd->list_size);
 	}
 }
 
