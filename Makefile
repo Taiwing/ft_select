@@ -32,6 +32,7 @@ INPUTC			=	char_functions_1.c\
 
 PRINTC			=	cursor.c\
 					fts_print.c\
+					print_interface.c\
 					print_list.c\
 
 ODIR			=	obj
@@ -70,8 +71,9 @@ g_charfunc.o: charfunc.h t_ftsdata.h
 main.o: libft.h fts_init.h t_ftsdata.h fts_load_argv.h fts_print.h charfunc.h
 cursor.o: t_ftsdata.h
 fts_print.o: terminal_mode.h libft.h print_list.h t_ftsdata.h
-print_list.o: libft.h t_ftsdata.h terminal_mode.h c_colors.h
-signal.o: libft.h terminal_mode.h
+print_interface.o: t_ftsdata.h libft.h c_colors.h terminal_mode.h
+print_list.o: libft.h t_ftsdata.h terminal_mode.h c_colors.h print_interface.h
+signal.o: libft.h terminal_mode.h fts_init.h t_ftsdata.h fts_print.h
 %.o: %.c
 	@mkdir -p $(ODIR)
 	$(CC) -c $(CFLAGS) $< $(HFLAGS) -o $(ODIR)/$@

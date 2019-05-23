@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 16:14:49 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 11:40:22 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/23 12:13:14 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "t_ftsdata.h"
 #include "terminal_mode.h"
 #include "c_colors.h"
+#include "print_interface.h"
 
 void		print_elem(t_ftselem *elem, int	coord[2],
 					t_ftsprint *ftsp, int on_cursor)
@@ -24,8 +25,7 @@ void		print_elem(t_ftselem *elem, int	coord[2],
 
 	if (errno || !elem)
 		return ;
-	x = (coord[X] * (ftsp->col_w)) + (ftsp->separators * 2)
-		+ ftsp->separators * (coord[X] != 0) + ftsp->origin[X];
+	x = (coord[X] * (ftsp->col_w)) + (ftsp->separators * 2) + ftsp->origin[X];
 	tputs(tgoto(ftsp->termcaps[TC_CM], x, coord[Y]), 1, tputchar);
 	//maybe clear next elem_size characters
 	if (!errno)
@@ -78,6 +78,7 @@ int			reprint_screen(t_ftsdata *ftsd, t_ftsprint *ftsp)
 
 	tputs(ftsp->termcaps[TC_CL], 1, tputchar);
 	errno = 0;
+	print_interface(ftsd, ftsp);
 	if ((to_print = ftsp->printable < ftsd->list_size
 		? ftsp->printable : ftsd->list_size))
 		print_elem(ftsd->lst, ftsp->cursor, ftsp, 1);
