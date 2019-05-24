@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 11:47:42 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 15:07:02 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/24 16:42:42 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ static void	print_status_bar(t_ftsdata *ftsd, t_ftsprint *ftsp)
 		width -= 255;
 	}
 	tputs(tgoto(ftsp->termcaps[TC_CM], 1, ftsd->term_h - 1), 1, tputchar);
-	ft_dprintf(0, C_REVERSE "%.*s" C_NO_REVERSE " ", ftsp->elem_size,
-			"completion");
+	if (ftsd->search && ftsd->s_valid)
+		ft_dprintf(0, C_REVERSE "%s" C_NO_REVERSE, ftsd->search);
+	else if (ftsd->search)
+		ft_dprintf(0, C_BG_RED "%s" C_RESET, ftsd->search);
 	if ((len = ft_intlen(ftsd->list_size)) > 0
 		&& len <= (ftsd->term_w - ftsp->elem_size - 3))
 	{

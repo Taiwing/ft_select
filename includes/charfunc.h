@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 17:46:27 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/11 13:04:35 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:34:57 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int		move_down(t_ftsdata *ftsd, char input[8]);
 int		move_right(t_ftsdata *ftsd, char input[8]);
 int		move_left(t_ftsdata *ftsd, char input[8]);
 int		delete_element(t_ftsdata *ftsd, char input[8]);
-int		completion(t_ftsdata *ftsd, char input[8]);
+int		search_element(t_ftsdata *ftsd, char input[8]);
 
 #endif

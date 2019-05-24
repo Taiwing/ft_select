@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 11:39:06 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 10:46:43 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:51:08 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct			s_ftsdata
 	int					list_size;			/*number of elements*/
 	t_ftselem			*lst;				/*is the list and the cursor*/
 	t_ftsprint			ftsp;				/*printing data*/
+	char				*search;			/*string for element search*/
+	int					s_cursor;			/*where we are in the search str*/
+	int					s_valid;			/*if the search is successful*/
 }						t_ftsdata;
 
 #endif

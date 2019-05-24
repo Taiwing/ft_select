@@ -1,2 +1,4 @@
-- dynamic search
+- fix dynamic search movement (if the matched element is on the screen, move
+  the cursor to its potsition, else just reprint the screen)
+- stabilize the columnns (authorize a smaller column)
 - little cutesie animations

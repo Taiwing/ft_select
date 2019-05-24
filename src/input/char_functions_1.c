@@ -6,15 +6,16 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 11:28:32 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/22 14:49:30 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/24 17:16:08 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 #include "charfunc.h"
 #include "ring.h"
 #include "fts_print.h"
 #include "cursor.h"
+#include "print_interface.h"
 
 int	discard_input(t_ftsdata *ftsd, char input[8])
 {
@@ -60,6 +61,11 @@ int	quit(t_ftsdata *ftsd, char input[8])
 int	select_element(t_ftsdata *ftsd, char input[8])
 {
 	(void)input;
+	if (ftsd->search)
+	{
+		ft_strdel(&ftsd->search);
+		print_interface(ftsd, &ftsd->ftsp);
+	}
 	ftsd->lst->selected = !ftsd->lst->selected;
 	if (ftsd->list_size > 1)
 	{
@@ -73,6 +79,11 @@ int	select_element(t_ftsdata *ftsd, char input[8])
 int	move_up(t_ftsdata *ftsd, char input[8])
 {
 	(void)input;
+	if (ftsd->search)
+	{
+		ft_strdel(&ftsd->search);
+		print_interface(ftsd, &ftsd->ftsp);
+	}
 	if (ftsd->list_size > 1)
 	{
 		ftsd->lst = ftsd->lst->prev;

@@ -6,7 +6,7 @@
 /*   By: yforeau <yforeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 18:34:27 by yforeau           #+#    #+#             */
-/*   Updated: 2019/05/23 11:00:54 by yforeau          ###   ########.fr       */
+/*   Updated: 2019/05/24 16:01:04 by yforeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void		fts_init(t_ftsdata *ftsd)
 	reset_input_mode();
 	ft_atexit(reset_input_mode);
 	ftsd->ftsp.lscolors = getenv("LSCOLORS");
+	ftsd->search = NULL;
+	ftsd->s_cursor = 0;
+	ftsd->s_valid = 1;
 	load_colors(ftsd->ftsp.lscolors, ftsd->ftsp.colors);
 	init_signals();
 }
