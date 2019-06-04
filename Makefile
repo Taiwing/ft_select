@@ -69,7 +69,7 @@ char_functions_1.o: libft.h charfunc.h t_ftsdata.h ring.h fts_print.h cursor.h\
 	print_interface.h
 char_functions_2.o: libft.h charfunc.h t_ftsdata.h ring.h fts_print.h cursor.h\
 	print_interface.h check_search.h
-check_search.o: t_ftsdata.h libft.h
+check_search.o: cursor.h t_ftsdata.h libft.h
 fts_getchar.o: libft.h charfunc.h t_ftsdata.h
 g_charfunc.o: charfunc.h t_ftsdata.h
 main.o: libft.h fts_init.h t_ftsdata.h fts_load_argv.h fts_print.h charfunc.h
